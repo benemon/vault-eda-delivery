@@ -1,0 +1,20 @@
+# hcp-vault-test.yaml
+- name: HCP Vault - Catch All
+  hosts: all
+  sources:
+    - gitrgoliveira.vault_eda.vault_events:
+        vault_addr: "{{ VAULT_ADDR }}"
+        vault_token: "{{ VAULT_TOKEN }}"
+        namespace: "{{ VAULT_NAMESPACE | default('admin') }}"
+        verify_ssl: true
+        ping_interval: 30
+        event_paths:
+          - "*"
+  rules:
+    - name: on any hcp vault event
+      condition: event.data is defined
+      action:
+        debug:
+          msg: >
+            🔔 HCP Vault Event -
+            Event: {{ event.data }}
