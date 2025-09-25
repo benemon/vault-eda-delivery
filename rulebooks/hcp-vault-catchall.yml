@@ -9,7 +9,7 @@
         verify_ssl: true
         ping_interval: 30
         event_paths:
-          - "kv-v2/*"
+          - "*"
   rules:
     - name: on any hcp vault event
       condition: event.data is defined
